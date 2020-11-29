@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}Movie{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<br>
+<center>
+{% if data == "except_IndexError" %}
+<h3><strong>영화 정보를 불러올 수 없습니다.</strong></h3>
+{% else %}
+<div class="container">
+<tr><td><img src={{ data[0] }} alt={{ data[1] }} onerror="this.src='https://ssl.pstatic.net/static/movie/2012/06/dft_img77x110_1.png'"></td></tr><br><br>
+<h3><strong>{{ data[1] }}</strong></h3>
+<p class="text-white">{{ data[2] }}</p>
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td class=tbl-header>개요</td>
+<td>
+{% for genre in data[3] %}{% if loop.last %}{{ genre }}{% else %}{{ genre }}, {% endif %}{% endfor %} | 
+{% for country in data[4] %}{{ country }}{% endfor %} | 
+상영시간 {{ data[5] }} | 개봉 {{ data[6][0] }}{{ data[6][1] }}
+</td></tr>
+<tr><td class=tbl-header>등급</td><td>{{ data[7][0] }}</td></tr>
+<tr><td class=tbl-header>영화 감독</td><td>{% for director in data[8] %}{% if loop.last %}{{ director }}{% else %}{{ director }}, {% endif %}{% endfor %}</td></tr>
+<tr><td class=tbl-header>출연 배우</td><td>{% for cast in data[9] %}{% if loop.last %}{{ cast }}{% else %}{{ cast }}, {% endif %}{% endfor %}</td></tr>
+</table>
+</div>
+<hr>
+<br>
+<div class="container">
+<h4 class="text-white">영화 반응 (네이버)</h4>
+<br>
+<table cellpadding="0" cellspacing="0" border="2" class="border-white">
+{% for review in naver_data %}
+<tr><td>{{ review }}</td></tr>
+{% endfor %}
+</table>
+</div>
+<br>
+<hr>
+<br>
+<div class="container">
+<h4 class="text-white">영화 반응 (다음)</h4>
+<br>
+<table cellpadding="0" cellspacing="0" border="2" class="border-white">
+{% for review in daum_data %}
+<tr><td>{{ review }}</td></tr>
+{% endfor %}
+</table>
+</div>
+<hr>
+<br>
+<div class="container">
+<p class="m-0 text-center text-white">Copyright &copy; 경남정보대학교 2-D E조</p>
+</div>
+<br>
+{% endif %}
+</center>
+{% endblock %}

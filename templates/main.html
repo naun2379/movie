@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Main{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<br>
+<center>
+<div class="container">
+{% for data in datas %}
+<h3>{{ data[0] }}위</h3><br>
+<a href="/movie/{{ data[2] }}">
+<tr><td><img src={{ data[3] }} alt={{ data[1] }} onerror="this.src='https://ssl.pstatic.net/static/movie/2012/09/dft_img99x141.png'"></td></tr><br>
+</a>
+<br>
+<a href="/movie/{{ data[2] }}" style="text-decoration:none">
+<h3><strong>{{ data[1] }}</strong></h3>
+</a>
+<br>
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td class=tbl-header>장르</td><td>{% for genre in data[4] %}{% if loop.last %}{{ genre }}{% else %}{{ genre }}, {% endif %}{% endfor %}</td></tr>
+<tr><td class=tbl-header>영화 감독</td><td>{% for director in data[5] %}{% if loop.last %}{{ director }}{% else %}{{ director }}, {% endif %}{% endfor %}</td></tr>
+<tr><td class=tbl-header>출연 배우</td><td>{% for cast in data[6] %}{% if loop.last %}{{ cast }}{% else %}{{ cast }}, {% endif %}{% endfor %}</td></tr>
+</table>
+<hr>
+{% endfor %}
+</div>
+<br>
+<div class="container">
+<p class="m-0 text-center text-white">Copyright &copy; 경남정보대학교 2-D E조</p>
+</div>
+<br>
+</center>
+{% endblock %}
